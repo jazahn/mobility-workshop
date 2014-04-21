@@ -3,8 +3,27 @@
 	<title>Mobility Workshop</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css"></link>
-	<script type="text/javascript" src="js/jquery-2.1.0.min.js">&nbsp;</script>
-	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js">&nbsp;</script>
+	<script src="js/lib/require.js"></script>
+	<script>
+		requirejs.config({
+			paths: {
+				'jquery'        : '/js/lib/jquery-2.1.0.min', //=> http://code.jquery.com/jquery-2.1.0.min
+				'jquery.mobile' : '/js/lib/jquery.mobile-1.4.2.min', //=> http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min
+			},
+			shim: {
+				'jquery' : '$', 
+				'jquery.mobile': {
+					deps: ['jquery'],
+				},
+			},
+		});
+
+		require(['jquery', 'jquery.mobile'], function($){
+			$(document).ready(function(){
+				console.log("bam");
+			});
+		});
+	</script>
 
 </head>
 <body>
@@ -13,9 +32,6 @@
 			<h1>This is a header</h1>
 		</header>
 		something
-		<footer data-role="footer" data-position="fixed">
-			<h1>This is a footer</h1>
-		</footer>
 	</div>
 </body>
 </html>
