@@ -132,9 +132,77 @@ RequireJS is based on the idea that it's the only script you need to load. So lo
 <script src="/js/lib/require.js"></script>
 ```
 
-Now we need the config to control where it gets our jquery libs from.
+Now we need the config to control where it gets our jquery libs from. We're going to add this in a script tag, as straight up in-line JavaScript. Why? Because the whole point is to avoid trips to the server.
 ```html
 <script>
-  
+  requirejs.config({
+		paths: {
+			'jquery'        : '/js/lib/jquery-2.1.0.min', //=> http://code.jquery.com/jquery-2.1.0.min
+			'jquery.mobile' : '/js/lib/jquery.mobile-1.4.2.min', //=> http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min
+		},
+  });
+</script>
+```
 
+All this has done is set the paths on where to find the libs and naming them. (also note the comments -- those are the CDNs we'll use later) We still need to add the "shim". The shim will declare dependencies -- which is important, because jquery.mobile requires jquery as a dependency. The whole config follows.
+```html
+<script>
+  requirejs.config({
+		paths: {
+			'jquery'        : '/js/lib/jquery-2.1.0.min', //=> http://code.jquery.com/jquery-2.1.0.min
+			'jquery.mobile' : '/js/lib/jquery.mobile-1.4.2.min', //=> http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min
+		},
+		shim: {
+			'jquery' : '$', 
+			'jquery.mobile': {
+				deps: ['jquery'],
+			},
+		},
+  });
+</script>
+```
 
+### Test it
+
+Now when you refresh, you will notice something very wrong. The jquery.mobile styles aren't being applied. Why? Because we never applied them.
+
+Let's add a simple require statement, so the libs get added to the page.
+
+RequireJS is made up of 2 methods. define() and require(). define is used for creating modules. require is used to create a block that has dependencies -- like jquery.
+
+So let's create a simple require, that includes both of our libs. Add this into the `<head>` after the config. We'll just wrap an alert in a document ready...
+```html
+<script>
+  require(['jquery', 'jquery.mobile'], function($){
+    $(document).ready(function(){
+      alert("bam");
+    });
+  }
+</script>
+```
+
+Now when you refresh, you should notice something else wrong. A massive delay in the time between the text displaying and the styles being applied. What's happening?
+
+The power of RequireJS is that it doesn't load the libs unless you need them, so whereas before, when we were adding the libs directly through `<script src=...>` the libs were loading before the DOM was ready, now they're not loading until sometime after load, before ready. The point being not to slow the construction of the DOM with script file fetches.
+
+However, in this case, we are using html5 data-attributes to style the page, set the theme. This is bad practice in general for many reasons you may not care about. There are 2 workarounds for this. One is lazy, one is hard.
+
+* Lazy
+** Include jquery and jquery.mobile the way we had originally
+** This negates what we're trying to accomplish with optimizations
+* Hard
+** Look at what the JS did to the HTML we wrote
+*** It took the data-attributes and added classes based on those attributes
+** Copy the classes it created into the elements it created them in
+
+The hard way is hard, but this is a flaw in jquery.mobile and it's important to understand why. jQuery Mobile is a great way to get you started, it's great for prototypes because you can get something out there quickly, but it's not done in a way that is optimized for mobile devices. Go figure. 
+
+My point, if you want something optimized well for mobile platforms, you may need to do the styles yourself.
+
+(Go with "Lazy" moving forward.)
+
+## Step 03
+
+listviews
+
+"99% of what I do is lists" is something I've heard said. Makes sense. Lists are important, so lets do lists, mobile style...
