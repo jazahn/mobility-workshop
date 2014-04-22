@@ -39,10 +39,9 @@ This is the initial, basic html layout.
 What we want to do in this step is get to Step 01. What this step covers is:
 * Download jQuery
 * Download jQuery Mobile
-* Insert in a basic sticky header
-* Add the Viewport
+* Adding those to the html
 
-You can skip through this step with `git checkout step01`
+You can skip through this step with `git checkout step01` and [click here](https://github.com/jazahn/mobility-workshop#step-01)
 
 ### Download jQuery
 You only need the js for this. This is the most used javascript library in the world. More than 50% of all of the pages of the internet include this lib. (I heard that somewhere, I didn't actually fact check that. It's believable, right?)
@@ -60,6 +59,7 @@ You'll need the JS, CSS, and images, so go ahead and get the zip.
 
 ### Put them in the right place
 Where's the right place? Convention / best practice dictates JavaScript goes in a js directory, CSS goes in a CSS directory off of your project. Images go in an images directory (in the case of jQuery Mobile's images, the directory should be. Also 3rd party JS libraries are generally put in a lib sub directory. So:
+```
 ├── css
 │   ├── jquery.mobile.css
 │   ├── images
@@ -67,6 +67,7 @@ Where's the right place? Convention / best practice dictates JavaScript goes in 
 │   ├── lib
 │      ├── jquery.js
 │      ├── jquery.mobile.js
+```
 
 ### Add them to version control
 Now we're going to use git to keep control of them. So we can easily switch back and forth between what we have and maybe the next step. (This part added to help give some familiarity with git.)
@@ -88,6 +89,8 @@ Before we can actually add anything, we need to make sure that the libs are incl
 <script src="/js/lib/jquery.js"></script>
 <script src="/js/lib/jquery.mobile.js"></script>
 ```
+
+## Step 01
 
 ### Insert a basic header
 Now we want to make sure these libs work. The first thing we need to do with jQuery Mobile is add a "page". jQM uses an idea of pages to switch between, we will use that later. For now, let's add a page div with a theme of "a",
@@ -117,3 +120,21 @@ In the `<head>`
 Now view it again and you'll see it shapes up.
 
 ## Step 02
+
+In this step, we're going to switch it all up and use RequireJS. RequireJS uses the AMD specification. What that means is it loads your JavaScript on-demand, and for the most part, after onload. To mobility, this means it keeps the delays associated with fetching JavaScript to a minimum.
+
+It also has the added benefit of modularizing your code. 
+
+So go get [RequireJS](http://requirejs.org/download) (or `git checkout step02` and start from there)
+
+RequireJS is based on the idea that it's the only script you need to load. So load it.
+```html
+<script src="/js/lib/require.js"></script>
+```
+
+Now we need the config to control where it gets our jquery libs from.
+```html
+<script>
+  
+
+
