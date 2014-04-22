@@ -72,13 +72,13 @@ Where's the right place? Convention / best practice dictates JavaScript goes in 
 ### Add them to version control
 Now we're going to use git to keep control of them. So we can easily switch back and forth between what we have and maybe the next step. (This part added to help give some familiarity with git.)
 * `git status` 
-** (from some directory above the JS/CSS)
-** Take a look around
+ * (from some directory above the JS/CSS)
+ * Take a look around
 * `git checkout -b <yourname or something easy to type>`
-** This will create and checkout (switch to) a new branch.
+ * This will create and checkout (switch to) a new branch.
 * `git add js`
 * `git add css`
-** These will add everything in those directories to the queue of what will be committed
+ * These will add everything in those directories to the queue of what will be committed
 * `git commit -m "adding jquery / jquery mobile libs"`
 With that done, now we can switch between what we've done and the finished product of what we're currently doing. We'll do that later.
 
@@ -188,12 +188,12 @@ The power of RequireJS is that it doesn't load the libs unless you need them, so
 However, in this case, we are using html5 data-attributes to style the page, set the theme. This is bad practice in general for many reasons you may not care about. There are 2 workarounds for this. One is lazy, one is hard.
 
 * Lazy
-** Include jquery and jquery.mobile the way we had originally
-** This negates what we're trying to accomplish with optimizations
+ * Include jquery and jquery.mobile the way we had originally
+ * This negates what we're trying to accomplish with optimizations
 * Hard
-** Look at what the JS did to the HTML we wrote
-*** It took the data-attributes and added classes based on those attributes
-** Copy the classes it created into the elements it created them in
+ * Look at what the JS did to the HTML we wrote
+  * It took the data-attributes and added classes based on those attributes
+ * Copy the classes it created into the elements it created them in
 
 The hard way is hard, but this is a flaw in jquery.mobile and it's important to understand why. jQuery Mobile is a great way to get you started, it's great for prototypes because you can get something out there quickly, but it's not done in a way that is optimized for mobile devices. Go figure. 
 
@@ -206,3 +206,5 @@ My point, if you want something optimized well for mobile platforms, you may nee
 listviews
 
 "99% of what I do is lists" is something I've heard said. Makes sense. Lists are important, so lets do lists, mobile style...
+
+Let's do a simple list now.
