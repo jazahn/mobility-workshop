@@ -208,3 +208,26 @@ listviews
 "99% of what I do is lists" is something I've heard said. Makes sense. Lists are important, so lets do lists, mobile style...
 
 Let's do a simple list now.
+
+Add the following after the `<header>`:
+```html
+<section>
+  <ul xmlns="" data-role="listview">
+    <li><a href="#">One</a></li>
+    <li><a href="#">Two</a></li>
+    <li><a href="#">Three</a></li>
+    <li>Four</li>
+  </ul>
+</section>	
+```
+
+Note the difference between `<li>`s with `<a>`s and without.
+
+### Ajax!
+
+Let's populate the list from an ajax call. That's still cool, right? I'm going to use an API available elsewhere, specifically...
+
+We're not doing a full course on JavaScript, but you should do this in a module, and we're not going to skimp. So create a new JS file
+```javascript
+
+```
