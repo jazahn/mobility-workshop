@@ -19,10 +19,13 @@
 				},
 			},
 		});
+	</script>
 
-		require(['jquery', 'jquery.mobile'], function($){
+	<script>
+		require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
 			$(document).ready(function(){
-
+				var chan = new Channel();
+				chan.getVideos();
 			});
 		});
 	</script>
@@ -33,12 +36,14 @@
 		<header data-role="header" data-position="fixed">
 			<h1>This is a header</h1>
 		</header>
-		<ul xmlns="" data-role="listview" data-inset="true">
-			<li><a href="#">One</a></li>
-			<li><a href="#">Two</a></li>
-			<li><a href="#">Three</a></li>
-			<li>Four</li>
-		</ul>
-		</div>
+		<section>
+			<ul id="channels" data-role="listview">
+				<li><a href="#">One</a></li>
+				<li><a href="#">Two</a></li>
+				<li><a href="#">Three</a></li>
+				<li>Four</li>
+			</ul>
+		</section>
+	</div>
 </body>
 </html>
