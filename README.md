@@ -227,7 +227,12 @@ Note the difference between `<li>`s with `<a>`s and without.
 
 Let's populate the list from an ajax call. That's still cool, right? I'm going to use an API available elsewhere, specifically...
 
-We're not doing a full course on JavaScript, but you should do this in a module, and we're not going to skimp. So create a new JS file
-```javascript
+We're not doing a full course on JavaScript, but you should do this in a module, and we're not going to skimp. But I'm not going to make you type it all in. So just move on to step05.
 
-```
+## Step 05
+
+Look at what we have. A module named "Channel.js" in the js directory. This will have a Channel object, with one method, getVideos. That method is just an $.ajax call to the youtube public API. I wanted to make use of a public API for reasons we'll talk about a little further on.
+
+You'll also notice I've got a snippet of code calling that module in the head of index.html.
+
+
