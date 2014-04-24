@@ -9,92 +9,94 @@ Overview of What We'll Be Doing!
  * An HTTP Server
  * 
 
-# Setting Up
-## Github
-Pull down the github.
+# Prerequisites
+## This code repository
+You will need to clone this code repository to your local machine using Git.  If you already know how to use Git, simply clone this this repository, otherwise read on.
 
-Don’t worry, the only git commands you’ll need to know for this are:
-* `git clone <repo>` 
-* `git checkout <branch>`
-* `git add <files>`
-* `git commit -m "some commit message!"`
-* (jk, you can't use ! in inline commit messages!)
+If you do not have a Git client installed, visit GitHub's [set up Git](https://help.github.com/articles/set-up-git) page and follow the instructions to install a client.  Once you have a working client (or the GitHub app), clone this repository:
 
-If you need git: ...
+```
+git clone https://github.com/jazahn/mobility-workshop.git
+cd mobility-workshop
+```
 
-So now pull down the repo into your workspace with:
-`git clone https://github.com/jazahn/mobility-workshop.git`
+## The first step in the workshop
+Switch to the branch containing the first step in the workshop:
 
-now `cd mobility-workshop`
-and checkout the first step:
-`git checkout step00`
+```
+git checkout step00
+```
 
-## Node
-Now I’m only making you use node to run a localhost so you can avoid any potential cross-site security errors. If you want to do something like `python -m SimpleHTTPServer`, that’s just as good. But this workshop is all javascripty. So.
+# Step 00
+We start with the initial, basic HTML layout without any mobility components. In this step we will install those basic components:
 
-Installing Node:
-* `curl https://www.npmjs.org/install.sh | sudo sh` OR `brew install node`
-* `npm install http-server -g`
-(The -g installs it so it’s globally available.)
-* From the directory you’re in, just type:
-`http-server`
-* Now go to http://localhost:8080 and look for a special message!
+- Downloading jQuery
+- Downloading jQuery Mobile
+- Integrate jQuery and jQuery Mobile into the basic HTML.
 
-## Step 00
-This is the initial, basic html layout.
+If you already know how to do these things, you can move on to step 01 by running `git checkout step01` and skiping to the [next section](#step-01)
 
-What we want to do in this step is get to Step 01. What this step covers is:
-* Download jQuery
-* Download jQuery Mobile
-* Adding those to the html
+## Download jQuery
+The jQuery library is the most used JavaScript library in the world. More than 50% of all of the pages on the internet include this library. (I heard that somewhere and it sounds believable, right?)
 
-You can skip through this step with `git checkout step01` and [click here](https://github.com/jazahn/mobility-workshop#step-01)
+Download the newest 2.x version from [http://jquery.com/download/]().
+(If you need to support IE 8 or earlier, you will need to use the older jQuery 1.x versions.)
 
-#### Download jQuery
-You only need the js for this. This is the most used javascript library in the world. More than 50% of all of the pages of the internet include this lib. (I heard that somewhere, I didn't actually fact check that. It's believable, right?)
+## Download jQuery Mobile
+The jQuery Mobile library is an extension to the jQuery library that is focused on creating HTML and CSS layouts that are mobile-compatible. It is a great, easy way to get started with mobile design.
 
-http://jquery.com/download/
+Download the complete zip file that contains all of the JavaScript, CSS, and images from: [http://jquerymobile.com/download/]()
 
-2.x or 1.x? I usually go with 2.x because I'm all about the future! But you need to go 1.x if you're interested in supporting IE 8 (or back). So...
+## Put them in the right place
+Convention dictates that a good layout for your project resembles the following tree. Unpack the jQuery and jQuery mobile files you downloaded and place them in your directory so that it matches this layout:
 
-#### Download jQuery Mobile
-jQuery Mobile is a lib that is much more focused on the Mobile than the jQuery. The js that it does include is mostly implementations of existing jQuery functionality. As such jQuery Mobile is much more focused on the HTML/CSS side than the js. It is a great, easy way to get your styles up to par with mobile designs. 
-
-http://jquerymobile.com/download/
-
-You'll need the JS, CSS, and images, so go ahead and get the zip. 
-
-#### Put them in the right place
-Where's the right place? Convention / best practice dictates JavaScript goes in a js directory, CSS goes in a CSS directory off of your project. Images go in an images directory (in the case of jQuery Mobile's images, the directory should be. Also 3rd party JS libraries are generally put in a lib sub directory. So:
 ```
 ├── css
 │   ├── jquery.mobile.css
 │   ├── images
 ├── js
 │   ├── lib
-│      ├── jquery-x.x.x.min.js
-│      ├── jquery.mobile-x.x.x.min.js
+│      ├── jquery.js
+│      ├── jquery.mobile.js
 ```
 
-#### Add them to version control
-Now we're going to use git to keep control of them. So we can easily switch back and forth between what we have and maybe the next step. (This part added to help give some familiarity with git.)
-* `git status` 
- * (from some directory above the JS/CSS)
- * Take a look around
-* `git checkout -b <yourname or something easy to type>`
- * This will create and checkout (switch to) a new branch.
-* `git add js`
-* `git add css`
- * These will add everything in those directories to the queue of what will be committed
-* `git commit -m "adding jquery / jquery mobile libs"`
-With that done, now we can switch between what we've done and the finished product of what we're currently doing. We'll do that later.
+Note that typically external JavaScript library dependencies go in a "lib" directory as shown here, or are included from third-party content delivery networks.
 
-#### Add the libraries to the HTML
-Before we can actually add anything, we need to make sure that the libs are included. So add the these script tags to the top of the page:
+## Check in the files to version control
+Good version control practice is to check in when you reach a logical end point. Adding all of your libraries and dependencies is a good point at which to commit a check-in, which you can do by running the following Git commands from the top level of your repository (i.e. the `mobility-workshop` directory):
+```
+git status
+```
+
+Prints a long output that shows you what has changed and is not yet committed.
+```
+git checkout -b <yourname>
+```
+Creates a new branch for your changes (rather than checking in to the step00 branch).
+```
+git add js css
+```
+
+Stage all of the new files under the `js` and `css` directories for commit.
+```
+git commit -m "adding jquery and jquery mobile"
+```
+
+Commit your staged changes with a commit message that explains the check-in.
+
+Now you can easily switch between the work you have done (on your own branch) and the other steps in this tutorial.  We will use this functionality later.
+
+## Add the libraries to the HTML
+Now that the libraries are installed, they need to be included in the HTML of the webpage. To do that, add these lines of HTML at the top of the `index.html` file:
 ```html
-<link rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css"></link>
-<script src="/js/lib/jquery.js"></script>
-<script src="/js/lib/jquery.mobile.js"></script>
+<link rel="stylesheet" href="css/jquery.mobile.css"></link>
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/jquery.mobile.js"></script>
+```
+
+Check in your changes (using the same method as in the step above). Now checkout the step01 branch to move on to the next step in the tutorial:
+```
+git checkout step01
 ```
 
 ## Step 01
