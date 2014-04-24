@@ -8,6 +8,7 @@ define(['jquery'], function($){
 	Channel.prototype.getVideos = function(){
 		var json;
 		var that = this;
+		$.mobile.loadPage( "video.html", { showLoadMsg: false } );
 		$.ajax({
 			url: this.url,
 			type: "GET", 
@@ -21,7 +22,6 @@ define(['jquery'], function($){
 				var li = $(document.createElement("li"));
 				var a = $(document.createElement("a"));
 				a.attr("href", "video.html");
-				//$.mobile.loadPage( item.link[2].href, { showLoadMsg: false } );
 				a.html(item.title.$t);
 				a.on('click', function(){ window.localStorage['currentVideo'] = JSON.stringify(item); });
 				// these classes are what jquery mobile adds
