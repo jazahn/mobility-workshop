@@ -24,7 +24,7 @@
 
 </head>
 <body>
-	<div data-role="page" data-theme="a">
+	<div id="video-page" data-role="page" data-theme="a">
 		<header data-role="header" data-position="fixed">
 			<h1>No Name</h1>
 		</header>
@@ -32,10 +32,11 @@
 
 		</section>
 		<script>
-			require(['jquery', 'js/Video'], function($, Video){
+			require(['jquery', 'js/Video', 'jquery.mobile'], function($, Video){
 				var video = new Video(JSON.parse(window.localStorage.currentVideo));
 			});
 		</script>
+
 	</div>
 	
 </body>

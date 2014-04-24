@@ -5,7 +5,7 @@ define(['jquery'], function($){
 		this.title = this.video.title.$t;
 		this.href = '';
 		
-		$('header h1').html(this.title);
+		$('#video-page header h1').html(this.title);
 		
 	}
 
