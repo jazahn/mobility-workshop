@@ -6,8 +6,9 @@ Get your mobility on.
 Overview of What We'll Be Doing!
 * Setting up
  * The Github
- * An HTTP Server
- * 
+* Step 00
+ * Get jQuery
+ * Get jQuery Mobile
 
 # Prerequisites
 ## This code repository
@@ -143,7 +144,7 @@ So go get [RequireJS](http://requirejs.org/docs/download.html) (or `git checkout
  * `git commit -a -m "my changes"`
  * `git checkout step02`
 
-RequireJS is based on the idea that it's the only script you need to load. So load it.
+RequireJS is based on the idea that it's the only script you need to load. So load it, and only it. And be sure to **remove the jquery and jquery.mobile javascript includes**.
 ```html
 <script src="/js/lib/require.js"></script>
 ```
@@ -184,9 +185,9 @@ Now when you refresh, you will notice something very wrong. The jquery.mobile st
 
 Let's add a simple require statement, so the libs get added to the page.
 
-RequireJS is made up of 2 methods. define() and require(). define is used for creating modules. require is used to create a block that has dependencies -- like jquery.
+RequireJS is made up of 2 methods. `define()` and `require()`. These function almost identically. `define` is used for creating modules. `require` is used to create a block of actions that has dependencies -- like jquery.
 
-So let's create a simple require, that includes both of our libs. Add this into the `<head>` after the config. We'll just wrap an alert in a document ready...
+So let's create a simple `require`, that includes both of our libs. Add this into the `<head>` after the config. We'll just wrap an alert in a document ready...
 ```html
 <script>
   require(['jquery', 'jquery.mobile'], function($){
@@ -197,23 +198,15 @@ So let's create a simple require, that includes both of our libs. Add this into 
 </script>
 ```
 
-(And then you can remove the alert.)
+Test it. (And then you can remove the alert.)
 
 Now when you refresh, you should notice something else wrong. A massive delay in the time between the text displaying and the styles being applied. What's happening?
 
-The power of RequireJS is that it doesn't load the libs unless you need them, so whereas before, when we were adding the libs directly through `<script src=...>` the libs were loading before the DOM was ready, now they're not loading until sometime after load, before ready. The point being not to slow the construction of the DOM with script file fetches.
+The power of RequireJS is that it doesn't load the libs unless you need them, so whereas before, when we were adding the libs directly through `<script src=...>` the libs were loading before the DOM was ready, now they're not loading until sometime after `load`, before `ready`. The point being not to slow the construction of the DOM with script file fetches.
 
-However, in this case, we are using html5 data-attributes to style the page, set the theme. This is bad practice in general for many reasons you may not care about. There are 2 workarounds for this. One is lazy, one is hard.
+However, in this case, we are using html5 data-attributes to style the page, set the theme. This is bad practice in general for many reasons you may not care about.
 
-* Lazy
- * Include jquery and jquery.mobile the way we had originally
- * This negates what we're trying to accomplish with optimizations
-* Hard
- * Look at what the JS did to the HTML we wrote
- * * It took the data-attributes and added classes based on those attributes
- * Copy the classes it created into the elements it created them in
-
-The hard way is hard, but this is a flaw in jquery.mobile and it's important to understand why. jQuery Mobile is a great way to get you started, it's great for prototypes because you can get something out there quickly, but it's not done in a way that is optimized for mobile devices. Go figure. 
+This is both a strength and a flaw of jQM, depending on how you look at it, and it's important to understand why. jQuery Mobile is a great way to get you started, it's great for prototypes because you can get something out there quickly, but it's not done in a way that is optimized for mobile devices. Go figure. 
 
 This brings me to optimization...
 
@@ -234,7 +227,9 @@ This is potentially the most important thing I'm going to say about jQuery Mobil
 
 **Everything done with a data-attribute is for prototyping, and not for production.**
 
-(That said, we're prototyping, so don't sweat it so much.)
+(That said, we're prototyping, so don't sweat the optimization so much. Just know that when you want to bring this to production, you'll have to deconstruct the class/tag manipulations that the javascript is doing)
+
+**Let it load slowly, but understand why it's doing that.**
 
 ## Step 03
 
