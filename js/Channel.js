@@ -1,4 +1,4 @@
-define(['jquery'], function($){
+define(['jquery', 'jquery.mobile'], function($){
 	var Channel = function(){
 		this.videos = [];
 		this.listClasses = "ui-btn ui-btn-icon-right ui-icon-carat-r".split(" ");
@@ -23,6 +23,7 @@ define(['jquery'], function($){
 				var a = $(document.createElement("a"));
 				a.attr("href", "video.html");
 				a.html(item.title.$t);
+				a.attr("data-transition", "slide");
 				a.on('click', function(){ window.localStorage['currentVideo'] = JSON.stringify(item); });
 				// these classes are what jquery mobile adds
 				// without this line, they don't get styled
