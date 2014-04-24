@@ -202,14 +202,13 @@ This brings me to optimization...
 #### Optimization
 
 From the jQuery Mobile docs:
-```
-Providing pre-rendered markup
+>Providing pre-rendered markup
 You can improve the load time of your page by providing the markup that the button widget would normally create during its initialization.
 
-By providing this markup yourself, and by indicating that you have done so by setting the attribute data-enhanced="true", you instruct the button widget to skip these DOM manipulations during instantiation and to assume that the required DOM structure is already present.
+>By providing this markup yourself, and by indicating that you have done so by setting the attribute data-enhanced="true", you instruct the button widget to skip these DOM manipulations during instantiation and to assume that the required DOM structure is already present.
 
-When you provide such pre-rendered markup you must also set all the classes that the framework would normally set, and you must also set all data attributes whose values differ from the default to indicate that the pre-rendered markup reflects the non-default value of the corresponding widget option.
-```
+>When you provide such pre-rendered markup you must also set all the classes that the framework would normally set, and you must also set all data attributes whose values differ from the default to indicate that the pre-rendered markup reflects the non-default value of the corresponding widget option.
+
 
 tldr;
 
