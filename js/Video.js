@@ -8,11 +8,6 @@ define(['jquery'], function($){
 		$('header h1').html(this.title);
 		
 	}
-	
-	Video.prototype.setup = function(){
-		
-		
-	}
 
 	return Video;
 	

@@ -21,15 +21,6 @@
 		});
 	</script>
 
-	<script>
-		require(['jquery', 'js/Video'], function($, Video){
-			$(document).ready(function(){
-				var video = new Video(JSON.parse(window.localStorage.currentVideo));
-				$('header h1').html(video.title);
-				
-			});
-		});
-	</script>
 
 </head>
 <body>
@@ -40,6 +31,12 @@
 		<section data-role="main">
 
 		</section>
+		<script>
+			require(['jquery', 'js/Video'], function($, Video){
+				var video = new Video(JSON.parse(window.localStorage.currentVideo));
+			});
+		</script>
 	</div>
+	
 </body>
 </html>

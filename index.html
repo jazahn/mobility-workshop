@@ -22,11 +22,14 @@
 	</script>
 
 	<script>
-		require(['jquery', 'js/Channel'], function($, Channel){
-			$(document).ready(function(){
+	$(document).on('pagecreate', function(){
+		console.log("bam!");
+	});
+		require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
+				console.log("bam BAM!");
+				
 				var chan = new Channel();
 				chan.getVideos();
-			});
 		});
 	</script>
 
