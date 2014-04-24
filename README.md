@@ -131,6 +131,13 @@ It also has the added benefit of modularizing your code.
 
 So go get [RequireJS](http://requirejs.org/docs/download.html) (or `git checkout step02` and start from there)
 
+* If you want to discard your changes, use 
+ * `git checkout -f step02`
+* If you want to save your changes to come back to later
+ * `git checkout -b mybranch`
+ * `git commit -a -m "my changes"`
+ * `git checkout step02`
+
 RequireJS is based on the idea that it's the only script you need to load. So load it.
 ```html
 <script src="/js/lib/require.js"></script>
