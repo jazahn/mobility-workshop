@@ -22,7 +22,7 @@
 	</script>
 
 	<script>
-		require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
+		require(['jquery', 'js/Channel'], function($, Channel){
 			$(document).ready(function(){
 				var chan = new Channel();
 				chan.getVideos();
@@ -37,7 +37,9 @@
 			<h1>This is a header</h1>
 		</header>
 		<section>
-			<ul id="channels" data-role="listview">
+			<input id="channel-input" data-type="search">
+			<ul id="channels" data-role="listview" data-filter="true" data-input="#channel-input">
+			
 			</ul>
 		</section>
 	</div>
