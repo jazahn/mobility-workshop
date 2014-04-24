@@ -31,13 +31,13 @@ We start with the initial, basic HTML layout without any mobility components. In
 If you already know how to do these things, you can move on to step 01 by running `git checkout step01` and skiping to the [next section](#step-01)
 
 ## Download jQuery
-JQuery is the most used JavaScript library in the world. More than 50% of all of the pages on the internet include this library. (I heard that somewhere and it sounds believable, right?)
+The jQuery library is the most used JavaScript library in the world. More than 50% of all of the pages on the internet include this library. (I heard that somewhere and it sounds believable, right?)
 
 Download the newest 2.x version from [http://jquery.com/download/]().
 (If you need to support IE 8 or earlier, you will need to use the older jQuery 1.x versions.)
 
 ## Download jQuery Mobile
-JQuery Mobile is an extension to the jQuery library that is focused on creating HTML and CSS layouts that are mobile-compatible. It is a great, easy way to get started with mobile design.
+The jQuery Mobile library is an extension to the jQuery library that is focused on creating HTML and CSS layouts that are mobile-compatible. It is a great, easy way to get started with mobile design.
 
 Download the complete zip file that contains all of the JavaScript, CSS, and images from: [http://jquerymobile.com/download/]()
 
