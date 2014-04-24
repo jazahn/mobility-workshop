@@ -290,7 +290,40 @@ We can create another page, video.html, and a js module to go with it... and let
 
 ## Step 07
 
-Let's look at what we have. 
+Let's look at what we have. We click on a link and it opens a new page. Though it's just a blank page. Look at the code though, the Video constructor actually sets the `<h1>` in the header with a value from `localStorage`. But that's not happening... if we refresh video.html, it does get the header and sets it appropriately... but now if we click "back", the list doesn't load in index.html... why?
+
+So now we're getting into the jQuery Mobile topic of "pages". jQuery Mobile acutally does a pseudo-SPA (Single-Page Application) by linking things together via the `data-role="page"`. When a link is clicked on the page, jQuery Mobile hijacks the request and actually inserts the content of the new page into the page tag. So the issue we're hitting is the `$(document).ready()` is not happening more than once, even though it seems like we're going to a new page. So we actually have to listen for something else.
+
+The easiest way to deal with this is to remove the `$(document).ready()`s and move the script tags containing those `require()`s to the bottom of the `page` tag. (But still inside of the page tag.)
+
+## Step 08
+
+Now we have a functioning page "transition". Let's do some fun mobily stuff with that.
+
+#### Pre-fetching
+
+Let's pre-fetch all of the possible pages. What this will actually be doing is adding the page to the DOM. This is the "power" of having that "peudo-SPA" I was talking about before. Because this is actually just one page, that runs JS on it, we can just load it once and it will become part of the same DOM, so when we do actually click on it, it does not make a trip to the "server" for it.
+
+Add the following line to somewhere in the `getVideos()` method in Channel.js:
+```javascript
+$.mobile.loadPage( "video.html", { showLoadMsg: false } );
+```
+
+Unfortunately, doing this locally, it's hard to appreciate the gain from that. Oh well.
+
+#### Transitioning
+
+This is what makes things pretty, I guess. Let's add a nice slide to the page transition. To do this with a link, you just need to add the data-attribute `data-transition="slide"` in the actual tag. Since we are building our links/list items, we need to add that in the forEach in Channel.js
+```javascript
+a.attr("data-transition", "slide");
+```
+
+That's it. There are other transitions available, play with a couple: (http://demos.jquerymobile.com/1.2.0/docs/pages/page-transitions.html)
+
+## Step 09
+
+Now let's play with the appcache manifest.
+
 
 
 
