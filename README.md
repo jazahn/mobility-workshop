@@ -4,7 +4,10 @@ mobility-workshop
 Get your mobility on.
 
 Overview of What We'll Be Doing!
-* 
+* Setting up
+ * The Github
+ * An HTTP Server
+ * 
 
 # Setting Up
 ## Github
