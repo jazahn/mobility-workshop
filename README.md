@@ -11,27 +11,28 @@ Don’t worry, the only git commands you’ll need to know for this are:
 * `git clone <repo>` 
 * `git checkout <branch>`
 * `git add <files>`
-* `git commit -m "some commit message!"` (
+* `git commit -m "some commit message!"`
 * (jk, you can't use ! in inline commit messages!)
 
 If you need git: ...
 
 So now pull down the repo into your workspace with:
-`git clone `
+`git clone https://github.com/jazahn/mobility-workshop.git`
 
 now `cd mobility-workshop`
 and checkout the first step:
 `git checkout step00`
 
 ## Node
-Now I’m only making you use node to run a localhost so you can avoid any potential cross-site security errors. If you want to do something like python -m SimpleHTTPServer, that’s just as good. But this workshop is all javascripty. So.
+Now I’m only making you use node to run a localhost so you can avoid any potential cross-site security errors. If you want to do something like `python -m SimpleHTTPServer`, that’s just as good. But this workshop is all javascripty. So.
 
 Installing Node:
-* `curl https://npmjs.org/install.sh | sh`
+* `curl https://npmjs.org/install.sh | sh` OR `brew install node`
 * `npm install http-server -g`
 (The -g installs it so it’s globally available.)
 * From the directory you’re in, just type:
 `http-server`
+* Now go to http://localhost:8080 and look for a special message!
 
 ## Step 00
 This is the initial, basic html layout.
@@ -65,8 +66,8 @@ Where's the right place? Convention / best practice dictates JavaScript goes in 
 │   ├── images
 ├── js
 │   ├── lib
-│      ├── jquery.js
-│      ├── jquery.mobile.js
+│      ├── jquery-x.x.x.min.js
+│      ├── jquery.mobile-x.x.x.min.js
 ```
 
 #### Add them to version control
@@ -85,7 +86,7 @@ With that done, now we can switch between what we've done and the finished produ
 #### Add the libraries to the HTML
 Before we can actually add anything, we need to make sure that the libs are included. So add the these script tags to the top of the page:
 ```html
-<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css"></link>
+<link rel="stylesheet" href="/css/jquery.mobile-1.4.2.min.css"></link>
 <script src="/js/lib/jquery.js"></script>
 <script src="/js/lib/jquery.mobile.js"></script>
 ```
@@ -93,14 +94,14 @@ Before we can actually add anything, we need to make sure that the libs are incl
 ## Step 01
 
 #### Insert a basic header
-Now we want to make sure these libs work. The first thing we need to do with jQuery Mobile is add a "page". jQM uses an idea of pages to switch between, we will use that later. For now, let's add a page div with a theme of "a",
+Now we want to make sure these libs work. The first thing we need to do with jQuery Mobile is add a "page". jQM uses an idea of pages to switch between, we will use that later. For now, let's add a page div with a theme of "a", (which is actually the default theme, so that's redundant).
 ```html
 <div data-role="page" data-theme="a">
 </div>
 ```
 For the most part, all of our content will go in there.
 
-Now add the header.
+Now add the header. (Inside of the page div.)
 ```html
 <header data-role="header" data-position="fixed">
 This is a header
@@ -109,15 +110,15 @@ This is a header
 For the most part, the data-role on this does nothing but adds a class to the header. The data-position fixed does the cool stuff. That's what will keep it stuck to the top. Similar to what `position: sticky` will do if it ever actually gets added to standard CSS.
 
 #### Add Viewport
-Now notice that viewing it...
+Now notice that viewing it... Looks fine. Because you're viewing it in a browser, probably. But on a mobile device / iOS sim / ripple, it looks bad, trust me?
 
 Add the viewport meta tag with
 ```html
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 ```
 In the `<head>`
 
-Now view it again and you'll see it shapes up.
+Now view it again and take my word for it, it shapes up.
 
 ## Step 02
 
@@ -125,14 +126,14 @@ In this step, we're going to switch it all up and use RequireJS. RequireJS uses 
 
 It also has the added benefit of modularizing your code. 
 
-So go get [RequireJS](http://requirejs.org/download) (or `git checkout step02` and start from there)
+So go get [RequireJS](http://requirejs.org/docs/download.html) (or `git checkout step02` and start from there)
 
 RequireJS is based on the idea that it's the only script you need to load. So load it.
 ```html
 <script src="/js/lib/require.js"></script>
 ```
 
-Now we need the config to control where it gets our jquery libs from. We're going to add this in a script tag, as straight up in-line JavaScript. Why? Because the whole point is to avoid trips to the server.
+Now we need the config to control where it gets our jquery libs from. We're going to add this in a script tag (in the `<head>`, as straight up in-line JavaScript. Why? Because the whole point is to avoid trips to the server.
 ```html
 <script>
   requirejs.config({
@@ -177,7 +178,7 @@ So let's create a simple require, that includes both of our libs. Add this into 
     $(document).ready(function(){
       alert("bam");
     });
-  }
+  });
 </script>
 ```
 
