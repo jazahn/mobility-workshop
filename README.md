@@ -43,21 +43,21 @@ What we want to do in this step is get to Step 01. What this step covers is:
 
 You can skip through this step with `git checkout step01` and [click here](https://github.com/jazahn/mobility-workshop#step-01)
 
-### Download jQuery
+#### Download jQuery
 You only need the js for this. This is the most used javascript library in the world. More than 50% of all of the pages of the internet include this lib. (I heard that somewhere, I didn't actually fact check that. It's believable, right?)
 
 http://jquery.com/download/
 
 2.x or 1.x? I usually go with 2.x because I'm all about the future! But you need to go 1.x if you're interested in supporting IE 8 (or back). So...
 
-### Download jQuery Mobile
+#### Download jQuery Mobile
 jQuery Mobile is a lib that is much more focused on the Mobile than the jQuery. The js that it does include is mostly implementations of existing jQuery functionality. As such jQuery Mobile is much more focused on the HTML/CSS side than the js. It is a great, easy way to get your styles up to par with mobile designs. 
 
 http://jquerymobile.com/download/
 
 You'll need the JS, CSS, and images, so go ahead and get the zip. 
 
-### Put them in the right place
+#### Put them in the right place
 Where's the right place? Convention / best practice dictates JavaScript goes in a js directory, CSS goes in a CSS directory off of your project. Images go in an images directory (in the case of jQuery Mobile's images, the directory should be. Also 3rd party JS libraries are generally put in a lib sub directory. So:
 ```
 ├── css
@@ -69,7 +69,7 @@ Where's the right place? Convention / best practice dictates JavaScript goes in 
 │      ├── jquery.mobile.js
 ```
 
-### Add them to version control
+#### Add them to version control
 Now we're going to use git to keep control of them. So we can easily switch back and forth between what we have and maybe the next step. (This part added to help give some familiarity with git.)
 * `git status` 
  * (from some directory above the JS/CSS)
@@ -82,7 +82,7 @@ Now we're going to use git to keep control of them. So we can easily switch back
 * `git commit -m "adding jquery / jquery mobile libs"`
 With that done, now we can switch between what we've done and the finished product of what we're currently doing. We'll do that later.
 
-### Add the libraries to the HTML
+#### Add the libraries to the HTML
 Before we can actually add anything, we need to make sure that the libs are included. So add the these script tags to the top of the page:
 ```html
 <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css"></link>
@@ -92,7 +92,7 @@ Before we can actually add anything, we need to make sure that the libs are incl
 
 ## Step 01
 
-### Insert a basic header
+#### Insert a basic header
 Now we want to make sure these libs work. The first thing we need to do with jQuery Mobile is add a "page". jQM uses an idea of pages to switch between, we will use that later. For now, let's add a page div with a theme of "a",
 ```html
 <div data-role="page" data-theme="a">
@@ -108,7 +108,7 @@ This is a header
 ```
 For the most part, the data-role on this does nothing but adds a class to the header. The data-position fixed does the cool stuff. That's what will keep it stuck to the top. Similar to what `position: sticky` will do if it ever actually gets added to standard CSS.
 
-### Add Viewport
+#### Add Viewport
 Now notice that viewing it...
 
 Add the viewport meta tag with
@@ -162,7 +162,7 @@ All this has done is set the paths on where to find the libs and naming them. (a
 </script>
 ```
 
-### Test it
+#### Test it
 
 Now when you refresh, you will notice something very wrong. The jquery.mobile styles aren't being applied. Why? Because we never applied them.
 
@@ -192,14 +192,32 @@ However, in this case, we are using html5 data-attributes to style the page, set
  * This negates what we're trying to accomplish with optimizations
 * Hard
  * Look at what the JS did to the HTML we wrote
-  * It took the data-attributes and added classes based on those attributes
+ * * It took the data-attributes and added classes based on those attributes
  * Copy the classes it created into the elements it created them in
 
 The hard way is hard, but this is a flaw in jquery.mobile and it's important to understand why. jQuery Mobile is a great way to get you started, it's great for prototypes because you can get something out there quickly, but it's not done in a way that is optimized for mobile devices. Go figure. 
 
-My point, if you want something optimized well for mobile platforms, you may need to do the styles yourself.
+This brings me to optimization...
 
-(Go with "Lazy" moving forward.)
+#### Optimization
+
+From the jQuery Mobile docs:
+```
+Providing pre-rendered markup
+You can improve the load time of your page by providing the markup that the button widget would normally create during its initialization.
+
+By providing this markup yourself, and by indicating that you have done so by setting the attribute data-enhanced="true", you instruct the button widget to skip these DOM manipulations during instantiation and to assume that the required DOM structure is already present.
+
+When you provide such pre-rendered markup you must also set all the classes that the framework would normally set, and you must also set all data attributes whose values differ from the default to indicate that the pre-rendered markup reflects the non-default value of the corresponding widget option.
+```
+
+tldr;
+
+This is potentially the most important thing I'm going to say about jQuery Mobile:
+
+**Everything done with a data-attribute is for prototyping, and not for production.**
+
+(That said, we're prototyping, so don't sweat it so much.)
 
 ## Step 03
 
@@ -223,11 +241,57 @@ Add the following after the `<header>`:
 
 Note the difference between `<li>`s with `<a>`s and without.
 
-### Ajax!
+#### Ajax!
 
-Let's populate the list from an ajax call. That's still cool, right? I'm going to use an API available elsewhere, specifically...
+Let's populate the list from an ajax call. That's still cool, right? I'm going to use an API available elsewhere, specifically the youtube video API.
 
-We're not doing a full course on JavaScript, but you should do this in a module, and we're not going to skimp. So create a new JS file
-```javascript
+We're not doing a full course on JavaScript, but you should do this in a module, and we're not going to skimp. But I'm not going to make you type it all in. So just move on to step05. `git checkout step05`
 
+## Step 04
+
+What happened to this step? This step is an intermediate that has the `listview` added. Just move on to step05.
+
+## Step 05
+
+Look at what we have. A module named "Channel.js" in the js directory. This will have a Channel object, with one method, getVideos. That method is just an $.ajax call to the youtube public API.
+
+You'll also notice I've got a snippet of code calling that module in the head of index.html. It's using `require()` instead of the `define()` used in Channel.js These mostly do exactly the same thing and are just semantically different. `require()` is for doing stuff, this is typically done in the template files. `define()` is used for "defining" stuff, this is how modules are defined and are usually wrappers for single .js files.
+
+Don't worry too much about it.
+
+#### Search Filter
+
+Now that we have a pretty list, let's add a search filter!
+
+This can be done a few different ways, let's do the easiest! Just add `data-filter="true"` to the `<ul>`
+```html
+<ul id="channels" data-role="listview" data-filter="true">
 ```
+
+That's it!
+
+Now, I don't know about you, but I don't like putting complete control of elements into data-attributes. It's sloppy. So let's talk a second about optimization.
+
+But wait, what's going on with the 2 x's in the search filter?
+
+See, we're running into a problem having to do with optimization. We're going to hack our way through it, but I want you to understand what's happening. Because we're using data-attributes that are actually adding html elements, and because we are already doing a work around for making the page load a little nicer for us, we are running the create element 2 times, causing a doubled up search filter.
+
+Let's fix that...
+
+A quick "fix" for that is to remove `jquery.mobile` from the `require()` on this page. We're already synchronously adding that dependency globally, so just screw it.
+
+Again, the right way to fix this is to do what I said earlier with **Optimization**.
+
+## Step 06
+
+Let's make use of our links now... then maybe stop with the stupid jQuery Mobile crap?
+
+We can create another page, video.html, and a js module to go with it... and let's not waste time writing all that, skip ahead to step07: `git checkout step07`
+
+## Step 07
+
+Let's look at what we have. 
+
+
+
+
