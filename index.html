@@ -21,18 +21,6 @@
 		});
 	</script>
 
-	<script>
-	$(document).on('pagecreate', function(){
-		console.log("bam!");
-	});
-		require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
-				console.log("bam BAM!");
-				
-				var chan = new Channel();
-				chan.getVideos();
-		});
-	</script>
-
 </head>
 <body>
 	<div data-role="page" data-theme="a">
@@ -45,6 +33,14 @@
 			
 			</ul>
 		</section>
+		<script>
+			require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
+					console.log("bam BAM!");
+				
+					var chan = new Channel();
+					chan.getVideos();
+			});
+		</script>
 	</div>
 </body>
 </html>
