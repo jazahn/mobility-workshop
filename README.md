@@ -3,6 +3,9 @@ mobility-workshop
 
 Get your mobility on.
 
+Overview of What We'll Be Doing!
+* 
+
 # Setting Up
 ## Github
 Pull down the github.
@@ -27,7 +30,7 @@ and checkout the first step:
 Now I’m only making you use node to run a localhost so you can avoid any potential cross-site security errors. If you want to do something like `python -m SimpleHTTPServer`, that’s just as good. But this workshop is all javascripty. So.
 
 Installing Node:
-* `curl https://npmjs.org/install.sh | sh` OR `brew install node`
+* `curl https://www.npmjs.org/install.sh | sudo sh` OR `brew install node`
 * `npm install http-server -g`
 (The -g installs it so it’s globally available.)
 * From the directory you’re in, just type:
@@ -182,6 +185,8 @@ So let's create a simple require, that includes both of our libs. Add this into 
 </script>
 ```
 
+(And then you can remove the alert.)
+
 Now when you refresh, you should notice something else wrong. A massive delay in the time between the text displaying and the styles being applied. What's happening?
 
 The power of RequireJS is that it doesn't load the libs unless you need them, so whereas before, when we were adding the libs directly through `<script src=...>` the libs were loading before the DOM was ready, now they're not loading until sometime after load, before ready. The point being not to slow the construction of the DOM with script file fetches.
@@ -230,7 +235,7 @@ Let's do a simple list now.
 Add the following after the `<header>`:
 ```html
 <section>
-  <ul xmlns="" data-role="listview">
+  <ul data-role="listview">
     <li><a href="#">One</a></li>
     <li><a href="#">Two</a></li>
     <li><a href="#">Three</a></li>
@@ -246,6 +251,10 @@ Note the difference between `<li>`s with `<a>`s and without.
 Let's populate the list from an ajax call. That's still cool, right? I'm going to use an API available elsewhere, specifically the youtube video API.
 
 We're not doing a full course on JavaScript, but you should do this in a module, and we're not going to skimp. But I'm not going to make you type it all in. So just move on to step05. `git checkout step05`
+
+Why didn't that work? 
+
+Probably because 
 
 ## Step 04
 
@@ -294,7 +303,17 @@ Let's look at what we have. We click on a link and it opens a new page. Though i
 
 So now we're getting into the jQuery Mobile topic of "pages". jQuery Mobile acutally does a pseudo-SPA (Single-Page Application) by linking things together via the `data-role="page"`. When a link is clicked on the page, jQuery Mobile hijacks the request and actually inserts the content of the new page into the page tag. So the issue we're hitting is the `$(document).ready()` is not happening more than once, even though it seems like we're going to a new page. So we actually have to listen for something else.
 
-The easiest way to deal with this is to remove the `$(document).ready()`s and move the script tags containing those `require()`s to the bottom of the `page` tag. (But still inside of the page tag.)
+The easiest way to deal with this is to remove the `$(document).ready()`s, **but don't remove the content** (in both files) and move the script tags containing those `require()`s to the bottom of the `<div data-role="page">` tag. (But still inside of the "page" tag.)
+
+So the script tag you're inserting looks like this:
+```html
+<script>
+	require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
+		var chan = new Channel();
+		chan.getVideos();
+	});
+</script>
+```
 
 ## Step 08
 
