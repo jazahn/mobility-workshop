@@ -13,6 +13,7 @@ define(['jquery'], function($){
 			type: "GET", 
 			dataType: 'json',
 		}).success(function(resp){
+			// set localStorage
 			// save the videos to the array
 			this.videos = resp.feed.entry;
 			// now just populate the list
@@ -20,13 +21,15 @@ define(['jquery'], function($){
 				var li = $(document.createElement("li"));
 				var a = $(document.createElement("a"));
 				a.attr("href", "video.html");
+				//$.mobile.loadPage( item.link[2].href, { showLoadMsg: false } );
 				a.html(item.title.$t);
+				a.on('click', function(){ window.localStorage['currentVideo'] = JSON.stringify(item); });
 				// these classes are what jquery mobile adds
 				// without this line, they don't get styled
 				that.listClasses.forEach(function(cl){ a.addClass(cl); });
 				li.append(a);
 				$('#channels').append(li);
-			})
+			});
 		});
 
 	}
