@@ -19,7 +19,7 @@ define(['jquery'], function($){
 			this.videos.forEach(function(item){
 				var li = $(document.createElement("li"));
 				var a = $(document.createElement("a"));
-				a.attr("href", "video.html");
+				a.attr("href", item.link[2].href);
 				a.html(item.title.$t);
 				// these classes are what jquery mobile adds
 				// without this line, they don't get styled
