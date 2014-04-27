@@ -383,8 +383,92 @@ Let's move on to adding content to the menu. We can do this with a simple list..
 That's it!
 
 ## Step 10
-Now let's play with the appcache manifest.
 
+Now that we've done a menu on the left, let's do some other panel on the right. Like an absurd, useless form! Woo!
+
+This is going to work very similar to the left panel. Let's add in the link first:
+```html
+<header data-role="header" data-position="fixed">
+	<h1>This is a header</h1>
+	<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+	<a href="#nav-form" data-icon="plus" data-iconpos="notext">Add Something</a>
+</header>
+```
+
+You'll notice I'm not explicitly positioning them. A list of `data-icon`s can be found here: http://api.jquerymobile.com/resources/icons-list.html But let's take a quick look at what happens when we add more links to the header. Add another link. Refresh. Add 3 more. Refresh.
+
+I'll wait.
+
+You'll see that it really only cares about the first 2 links. Beyond that, it wraps to the "next line of the header" -- which just looks bad.
+
+Anyway, here's the panel code to actually get a form -- you're going to want to place this after the other panel. Let's try to maintain a logical DOM order.
+```html
+<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="add-form">
+
+	<form class="userform">
+		<h2>Create new user</h2>
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" value="" data-clear-btn="true" data-mini="true">
+
+		<label for="email">Email</label>
+		<input type="email" name="email" id="status" value="" data-clear-btn="true" data-mini="true">
+
+		<label for="password">Password:</label>
+		<input type="password" name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true">
+
+		<div class="switch">
+		<label for="status">Status</label>
+		<select name="status" id="slider" data-role="slider" data-mini="true">
+			<option value="off">Inactive</option>
+			<option value="on">Active</option>
+		</select>
+		</div>
+
+		<a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true">Cancel</a>
+		<a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true">Save</a>
+
+	</form>
+</div>
+```
+
+This is just a silly form, but there are some things we would like to tweak.
+
+First, you'll notice the Active/Inactive "slider" "select" issue. The text is too long for the element. We have to make it bigger. We probably want to add this to a specific styles.css for the app that is included in the base template (the one that other templates call for the header information) -- however your backend framework chooses to handle that.
+
+For the moment, let's fix it the WRONG way, but pay attention to how we have to do it anyway! 
+
+We have to add a `<style>` tag inside the `<div data-role="page">` element -- because *remember*, the head isn't loaded every time, it is retained and the "page" contents are funneled in.
+
+So let's add the following directly before the "panel" `<div>` we just added.
+```html
+<style>
+.switch .ui-slider-switch { width: 8.5em !important }
+</style>
+```
+
+#### The UI Grid
+
+And then there's the buttons. They're next to each other only because of the `data-inline`, otherwise, guess or try it.
+
+What if we wanted each button to have a width of like, 50%? 
+
+For that we need a `ui-grid`. http://api.jquerymobile.com/grid-layout/
+
+I know what you're thinking, "what the hell?! why are they using css here when they're so invested in data-attributes?!?" I dunno.
+
+Change the 2 buttons as follows:
+```html
+<div class="ui-grid-a">
+	<div class="ui-block-a">
+		<a href="#" data-rel="close" data-role="button" data-mini="true">Cancel</a>
+	</div>
+	<div class="ui-block-b">
+		<a href="#" data-rel="close" data-role="button" data-mini="true">Save</a>
+	</div>
+</div>
+```
+
+A little prettier.
 
 
 
