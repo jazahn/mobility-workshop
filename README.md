@@ -152,7 +152,7 @@ RequireJS is based on the idea that it's the only script you need to load. So lo
 Now we need the config to control where it gets our jquery libs from. We're going to add this in a script tag (in the `<head>`, as straight up in-line JavaScript. Why? Because the whole point is to avoid trips to the server.
 ```html
 <script>
-  requirejs.config({
+	requirejs.config({
 		paths: {
 			'jquery'        : '/js/lib/jquery-2.1.0.min', //=> http://code.jquery.com/jquery-2.1.0.min
 			'jquery.mobile' : '/js/lib/jquery.mobile-1.4.2.min', //=> http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min
@@ -192,7 +192,7 @@ So let's create a simple `require`, that includes both of our libs. Add this int
 <script>
   require(['jquery', 'jquery.mobile'], function($){
     $(document).ready(function(){
-      alert("bam");
+      alert("jQuery must have loaded to get here. (Remove this immediately, no one likes alerts)");
     });
   });
 </script>
@@ -204,7 +204,7 @@ Now when you refresh, you should notice something else wrong. A massive delay in
 
 The power of RequireJS is that it doesn't load the libs unless you need them, so whereas before, when we were adding the libs directly through `<script src=...>` the libs were loading before the DOM was ready, now they're not loading until sometime after `load`, before `ready`. The point being not to slow the construction of the DOM with script file fetches.
 
-However, in this case, we are using html5 data-attributes to style the page, set the theme. This is bad practice in general for many reasons you may not care about.
+However, in this case, we are using html5 data-attributes to style the page, set the theme. This is bad practice in general for many reasons you don't care about.
 
 This is both a strength and a flaw of jQM, depending on how you look at it, and it's important to understand why. jQuery Mobile is a great way to get you started, it's great for prototypes because you can get something out there quickly, but it's not done in a way that is optimized for mobile devices. Go figure. 
 
@@ -227,17 +227,15 @@ This is potentially the most important thing I'm going to say about jQuery Mobil
 
 **Everything done with a data-attribute is for prototyping, and not for production.**
 
-(That said, we're prototyping, so don't sweat the optimization so much. Just know that when you want to bring this to production, you'll have to deconstruct the class/tag manipulations that the javascript is doing)
+(That said, we *are* prototyping, so don't sweat the optimization so much. Just know that when you want to bring this to production, you'll have to deconstruct the class/tag manipulations that the javascript is doing)
 
-**Let it load slowly, but understand why it's doing that.**
+**Let it load slowly, but understand why it's doing that.** There are hacky ways to get it looking better, but let's focus on understanding why it's loading slow and move on.
 
 ## Step 03
 
 listviews
 
-"99% of what I do is lists" is something I've heard said. Makes sense. Lists are important, so lets do lists, mobile style...
-
-Let's do a simple list now.
+"99% of what I do is lists" is something I've heard said. Makes sense. Lists are important, so lets do a list.
 
 Add the following after the `<header>`:
 ```html
@@ -288,19 +286,9 @@ That's it!
 
 Now, I don't know about you, but I don't like putting complete control of elements into data-attributes. It's sloppy. So let's talk a second about optimization.
 
-But wait, what's going on with the 2 x's in the search filter?
-
-See, we're running into a problem having to do with optimization. We're going to hack our way through it, but I want you to understand what's happening. Because we're using data-attributes that are actually adding html elements, and because we are already doing a work around for making the page load a little nicer for us, we are running the create element 2 times, causing a doubled up search filter.
-
-Let's fix that...
-
-A quick "fix" for that is to remove `jquery.mobile` from the `require()` on this page. We're already synchronously adding that dependency globally, so just screw it.
-
-Again, the right way to fix this is to do what I said earlier with **Optimization**.
-
 ## Step 06
 
-Let's make use of our links now... then maybe stop with the stupid jQuery Mobile crap?
+Let's make use of our links now in a more jQM way.
 
 We can create another page, video.html, and a js module to go with it... and let's not waste time writing all that, skip ahead to step07: `git checkout step07`
 
@@ -308,7 +296,9 @@ We can create another page, video.html, and a js module to go with it... and let
 
 Let's look at what we have. We click on a link and it opens a new page. Though it's just a blank page. Look at the code though, the Video constructor actually sets the `<h1>` in the header with a value from `localStorage`. But that's not happening... if we refresh video.html, it does get the header and sets it appropriately... but now if we click "back", the list doesn't load in index.html... why?
 
-So now we're getting into the jQuery Mobile topic of "pages". jQuery Mobile acutally does a pseudo-SPA (Single-Page Application) by linking things together via the `data-role="page"`. When a link is clicked on the page, jQuery Mobile hijacks the request and actually inserts the content of the new page into the page tag. So the issue we're hitting is the `$(document).ready()` is not happening more than once, even though it seems like we're going to a new page. So we actually have to listen for something else.
+So now we're getting into the jQuery Mobile topic of "pages". jQuery Mobile acutally does a pseudo-SPA (Single-Page Application) by linking things together via the `data-role="page"`. When a link is clicked on the page, jQuery Mobile hijacks the request and actually inserts the content of the new page into the div-page tag. So the issue we're hitting is the `$(document).ready()` is not happening more than once, even though it seems like we're going to a new page. This means the `<head>` is only being executed in the first loaded page.
+
+So we actually have to work the JS differently. We can't have page specific JS loaded in `<head>`.
 
 The easiest way to deal with this is to remove the `$(document).ready()`s, **but don't remove the content** (in both files) and move the script tags containing those `require()`s to the bottom of the `<div data-role="page">` tag. (But still inside of the "page" tag.)
 
@@ -328,7 +318,7 @@ Now we have a functioning page "transition". Let's do some fun mobily stuff with
 
 #### Pre-fetching
 
-Let's pre-fetch all of the possible pages. What this will actually be doing is adding the page to the DOM. This is the "power" of having that "peudo-SPA" I was talking about before. Because this is actually just one page, that runs JS on it, we can just load it once and it will become part of the same DOM, so when we do actually click on it, it does not make a trip to the "server" for it.
+Let's pre-fetch all of the possible pages. What this will actually be doing is adding the page to the DOM. This is the "power" of having that "peudo-SPA" I was talking about before. Because this is actually just one page, that runs JS on it, we can just load it once and it will become part of the same DOM, so when we do actually click on it, it does not make a trip to the "server" for it. 
 
 Add the following line to somewhere in the `getVideos()` method in Channel.js:
 ```javascript
@@ -347,6 +337,8 @@ a.attr("data-transition", "slide");
 That's it. There are other transitions available, play with a couple: (http://demos.jquerymobile.com/1.2.0/docs/pages/page-transitions.html)
 
 ## Step 09
+
+Let's add a Menu.
 
 Now let's play with the appcache manifest.
 
