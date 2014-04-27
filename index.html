@@ -4,8 +4,6 @@
 	<title>Mobility Workshop</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css"></link>
-	<script src="/js/lib/jquery-2.1.0.min.js"></script>
-	<script src="/js/lib/jquery.mobile-1.4.2.min.js"></script>
 	<script src="/js/lib/require.js"></script>
 	<script>
 		requirejs.config({
@@ -27,7 +25,23 @@
 	<div data-role="page" data-theme="a">
 		<header data-role="header" data-position="fixed">
 			<h1>This is a header</h1>
+			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
 		</header>
+		
+		<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+			<ul data-role="listview" style="margin-top:-16px;" class="nav-search">
+				<li data-icon="delete" style="background-color:#111;">
+					<a href="#" data-rel="close">Close menu</a>
+				</li>
+				<li>
+					<a href="#">Something</a>
+				</li>
+				<li>
+					<a href="#">Something Else</a>
+				</li>
+			</ul>
+		</div>
+
 		<section data-role="main">
 			<input id="channel-input" data-type="search">
 			<ul id="channels" data-role="listview" data-filter="true" data-input="#channel-input">
@@ -35,9 +49,9 @@
 			</ul>
 		</section>
 		<script>
-			require(['jquery', 'js/Channel'], function($, Channel){
-				var chan = new Channel();
-				chan.getVideos();
+			require(['jquery', 'js/Channel', 'jquery.mobile'], function($, Channel){
+					var chan = new Channel();
+					chan.getVideos();
 			});
 		</script>
 	</div>
