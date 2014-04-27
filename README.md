@@ -338,8 +338,51 @@ That's it. There are other transitions available, play with a couple: (http://de
 
 ## Step 09
 
-Let's add a Menu.
+Let's add a Menu. One of those cool slidey menus.
 
+First we're going to add the icon / link into the header. So add in this link to the header like so:
+```html
+<header data-role="header" data-position="fixed">
+	<h1>This is a header</h1>
+	<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+</header>
+```
+
+So we have a link that does nothing, let's add in the magic. This div should be placed after the `<header>` (because semantically, that's where it should be)
+```html
+</header>
+
+<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel"></div>
+
+<section data-role="main">
+```
+
+You'll notice a lot more *awesome* data-attributes. We love those, right? They're all pretty self explanitory. The most important thing to note is probably the `id`, and how it links to the `href` of the preceeding `<a>` we just put in.
+
+But what's wrong now?! Damnit! If you're using Chrome, or a modern browser, using webkit (I love using the word "modern" to describe things I use) you will notice a really annoying screw-up with the transition / slide effect of the reveal from the left. It's a bug with the current version of jQM and can be mitigated by removing the `data-position=fixed` from the header. 
+
+Let the transition suck or remove the `fixed`, it's up to you.
+
+Let's move on to adding content to the menu. We can do this with a simple list... Everything is lists!
+```html
+<div data-role="panel" data-position="left" data-position-fixed="false" data-display="reveal" id="nav-panel" data-theme="a">
+	<ul data-role="listview" style="margin-top:-16px;" class="nav-search">
+		<li data-icon="delete" style="background-color:#111;">
+			<a href="#" data-rel="close">Close menu</a>
+		</li>
+		<li>
+			<a href="#">Something</a>
+		</li>
+		<li>
+			<a href="#">Something Else</a>
+		</li>
+	</ul>
+</div>
+```
+
+That's it!
+
+## Step 10
 Now let's play with the appcache manifest.
 
 
