@@ -6,9 +6,34 @@ Get your mobility on.
 Overview of What We'll Be Doing!
 * Setting up
  * The Github
-* Step 00
+* [Step 00](#step-00)
  * Get jQuery
  * Get jQuery Mobile
+* [Step 01](#step-01)
+ * Header
+ * Viewport
+* [Step 02](#step-02)
+ * RequireJS
+ * [Optimization](#optimization)
+* [Step 03](#step-03)
+ * Listviews
+* [Step 04](#step-04)
+ * Intermediate step (with listviews, before ajax)
+* [Step 05](#step-05)
+ * Search Filter
+* [Step 06](#step-06)
+ * Intermediate step (with search filter, before new video page)
+* [Step 07](#step-07)
+ * Pages (SPA)
+* [Step 08](#step-08)
+ * Prefetching
+ * Transitions
+* [Step 09](#step-09)
+ * Menu
+* [Step 10](#step-10)
+ * Forms
+ * Grids (ish)
+
 
 # Prerequisites
 ## This code repository
